@@ -1,0 +1,147 @@
+\documentclass[11pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[a4paper,top=1.5cm,bottom=1.5cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usetikzlibrary{arrows.meta}
+\newtheorem{definition}{Definition}[section]
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+
+\title{Compressed sensing}
+\author{Anastasiia Storozhenko}
+
+\begin{document}
+\maketitle
+
+\textbf{Outline:}
+
+\begin{enumerate}
+    \item Introducing the problem
+    \item Minimal number of measurements for 0-norm?
+    \item From 0-norm to 1-norm + questions to answer
+    \item When $l_1$-minimization solves the $l_0$-minimization problem (null space property)
+    \item Number of measurements with log + my plots
+    \item Phase transition + my plots
+    \item Conclusion
+\end{enumerate}
+
+\section{Introduction}
+We want to recover the sparse vector $\mathbf{x} \in \mathbb{K}^N$ knowing the vector of $m$ measurements $\mathbf{y} \in \mathbb{K}^m$ and the measurement matrix $\mathbf{A} \in M_{m \times N}(\mathbb{K})$ with $m < N$.
+
+Applications
+
+\section{Studying the $l_0$-minimization}
+
+We are looking for the sparsest solution of the underdetermined system of equations $\mathbf{Ax=y}$.
+One way to approach this is to solve the corresponding $l_0$-minimization problem.
+
+\begin{definition}
+    The \textbf{support} of a vector $\mathbf{x} \in \mathbb{K}^N$ is the set of indices of its nonzero entries:
+    $$ \mathrm{supp}(\mathbf{x}) = \{ j \in [\![1,N]\!] \mid x_j \neq 0 \}. $$
+\end{definition}
+
+\begin{definition}
+    We define $\norm{\mathbf{x}}_0$ as the cardinality of $\mathrm{supp}(\mathbf{x})$.
+    We say that the vector $\mathbf{x}$ is \textbf{$s$-sparse} if $\norm{\mathbf{x}}_0 \leq s$.
+\end{definition}
+Note that $\norm{\cdot}_0$ is not an actual norm, nor is it a semi-norm.
+Now we can formalize the problem in the following form:
+\begin{equation}
+    \mathrm{minimize} \ \norm{x}_0 \ \ \mathrm{subject\ to} \ \ \mathbf{Ax=y}.
+\end{equation}\label{eq:l0}
+
+
+
+\begin{definition}
+    $s$-sparse
+\end{definition}
+
+
+
+Minimal number of measurements ($2s$)
+
+NP-hardness
+
+
+\section{Convex alternatives}
+$\norm{\cdot}_p$: (preferably with pictures of unit balls)
+\begin{itemize}
+    \item $0 < p < 1$: non-convex, NP, bad
+    \item $p > 1$: convex, but doesn't solve the problem in general
+    \item $p = 1$: convex, solves the problem, good
+\end{itemize}
+
+\begin{figure}
+
+\begin{tikzpicture}[>=Stealth]
+   \foreach \i in {0,...,2}{
+     \begin{scope}[xshift=\i*5.6cm]
+      \draw [gray, densely dashed][->] (-2,0)--(3,0);
+      \draw [gray, densely dashed][->] (0,-2)--(0,2.5);
+      \draw [teal][shorten <=-1.5cm, shorten >=-3mm] (0,1.5)--(2.5,0) node [sloped, pos=0.75, above=-0.1cm] {$\mathbf{Ax=y}$};
+    \end{scope}
+   }
+   \begin{scope}
+       \begin{scope}
+           \draw [domain=0:90,samples=100,smooth,variable=\t] plot({-1.5*cos(\t)^(3)},{1.5*sin(\t)^(3)});
+           \draw [domain=0:90,samples=100,smooth,variable=\t] plot({-1.5*cos(\t)^(3)},{-1.5*sin(\t)^(3)});
+           \draw [domain=0:90,samples=100,smooth,variable=\t] plot({1.5*cos(\t)^(3)},{-1.5*sin(\t)^(3)});
+           \draw [domain=0:90,samples=100,smooth,variable=\t] plot({1.5*cos(\t)^(3)},{1.5*sin(\t)^(3)});
+       \end{scope}
+       \draw [xshift=5.6cm] (-1.5,0)--(0,1.5)--(1.5,0)--(0,-1.5)--cycle;
+       \draw [](11.2,0) circle (1.28cm);
+
+       \foreach \i [count=\j from 0] in {(0,1.5),(0,1.5), (.64,1.11)} \scoped [xshift=\j*5.6cm] { \draw[black] [-{Circle[width=3pt, length=3pt, fill=black, black]},
+           shorten >=-1.5pt] (0,0) node{}  -- \i node [above right] {$x^*$} ; };
+
+       \draw (0, -2.5) node {$p < 1$}
+       \draw (5.6, -2.5) node {$p = 1$}
+       \draw (11.2, -2.5) node {$p > 1$}
+   \end{scope}
+
+\end{tikzpicture}\end{figure}
+
+
+
+
+basis pursuit:
+\begin{equation}
+    \mathrm{minimize} \ \norm{x}_1 \ \ \mathrm{subject\ to} \ \ \mathbf{Ax=y}
+\end{equation}
+
+Other algorithms from chapter 3?
+
+\section{Studying the $l_1$-minimization}
+
+When does it solve the problem \ref{eq:l0}? $\xrightarrow{}$ chapter 4
+
+\begin{definition}
+    Null-space property
+\end{definition}
+
+Stability and robustness?
+
+\section{Number of measurements for $l_1$-minimization}
+
+Proposition 3.10 from The Convex Geometry of Linear Inverse Problems.
+My plots
+
+\section{Transition phase}
+
+Leaving on the Edge paper
+
+\newpage
+
+
+\end{document}
