@@ -1,0 +1,108 @@
+\section{Studying the $l_0$-minimization}
+
+We want to recover an  $s$-sparse vector $\mathbf{x} \in \mathbb{K}^N$ knowing a vector of $m$ measurements
+$\mathbf{y} \in \mathbb{K}^m$ and a measurement matrix $\mathbf{A} \in M_{m \times N}(\mathbb{K})$ with $m < N$,
+such that $\mathbf{Ax=y}$.
+The system is underdetermined, so we have to look for alternative ways to solve it.
+The most straightforward approach is to solve the corresponding $l_0$-minimization problem.
+
+\begin{definition}
+    The \textbf{support} of a vector $\mathbf{x} \in \mathbb{K}^N$ is the set of indices of its nonzero entries:
+    \begin{equation*}
+        \op{supp}(\mathbf{x}) = \{ j \in [\![1,N]\!] \colon x_j \neq 0 \}
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    We define $\norm{\mathbf{x}}_0$ as the cardinality of $\op{supp}(\mathbf{x})$.
+    We say that the vector $\mathbf{x}$ is \textbf{$s$-sparse} if $\norm{\mathbf{x}}_0 \leq s$.
+\end{definition}
+Note that $\norm{\cdot}_0$ is not an actual norm, nor is it a semi-norm.
+Now we can formalize the problem in the following form:
+\begin{equation}\label{eq:l0}
+    \op{minimize} \ \norm{\x}_0 \ \ \op{subject\ to} \ \ \mathbf{Ax=y}. \tag{P_0}
+\end{equation}
+
+\begin{proposition}
+    Let $\mathbf{A} \in M_{m \times N}(\mathbb{K})$, $\x \in \mathbb{K}^N$ $s$-sparse and $\mathbf{y} \in \mathbb{K}^m$.
+    The following two statements are equivalent:
+    \begin{enumerate}[label=(\roman*)]
+        \item The vector $\x$ is the unique solution of the compressed sensing problem, i.e, it's
+        the unique $s$-sparse vector such that $\mathbf{Ax=y}$.
+        \item The vector $\x$ is the unique solution of \ref{eq:l0}.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    $(i) \Rightarrow (ii)$ If $\x$ is the only $s$-sparse vector that satisfies $\mathbf{Ax=y}$, then there exists no such
+    vector $\mathbf{z}$, that $\norm{\mathbf{z}}_0 \leq \norm{\x}_0 \leq s$, which makes $\x$ the unique minimizer of \ref{eq:l0}.
+
+    $(ii) \Rightarrow (i)$ Immediate.
+\end{proof}
+
+\begin{theorem}
+    Let $\mathbf{A} \in M_{m \times N}(\mathbb{K})$  and $\mathbf{x}, \mathbf{z} \in \mathbb{K}^N$.
+    The following statements are equivalent:
+
+    \begin{enumerate}[label=(\roman*)]
+        \item \label{itm:itm1} If $\mathbf{Ax = Az}$ and both $\x$ and $\mathbf{z}$ are $s$-sparse, then $\mathbf{x = z}$.
+        \item $\op{Ker} \A \cap \{ \mathbf{z} \in \mathbb{K}^N \colon \norm{\mathbf{z}}_0 \leq 2s \} = \{ \mathbf{0} \}$,
+        i.e., $\mathbf{0}$ is the only $2s$-sparse vector in the $\op{Ker} \A$.
+        \item For every $S \subset [\![1,N]\!]$ with $\op{card}(S) \leq 2s$, the submatrix $\A_S$ is injective as a
+        map from $\mathbb{K}^{\op{card}(S)}$ to $\mathbb{K}^m$.
+        \item \label{itm:itm4} Every set of $2s$ columns of $\A$ is linearly independent, i.e., $\op{rang} \A \geq 2s$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+
+    $(i) \Rightarrow (ii)&$ Let $\mathbf{z} \in \mathbb{K}^N $ be $2s$-sparse and satisfy $\A \mathbf{z} = \mathbf{0}$.
+    On the other hand, we also have $\A \mathbf{0} = \mathbf{0}$, so by the hypothesis it has to be that $\mathbf{z}=\mathbf{0}$.
+
+    $(ii) \Rightarrow (i)&$ Now let $\x$ and $\mathbf{z}$ be two $s$-sparse vectors such that $\mathbf{Ax = Az}$.
+    Then $\mathbf{x-z}$ is $2s$-sparse and $\mathbf{Ax - Az} = \mathbf{A(x-z)=0}$, which implies that $\mathbf{x-z} \in \op{Ker}\A$.
+    By hypothesis, we conclude that $x=z$.
+
+    $(ii) \Rightarrow (iii)$ We recall that linear map $\mathbf{A}$ is injective iff $\op{Ker}\A = \{\mathbf{0}\}$.
+    Let $\xx \in \mathbb{K}^{N}$ be a $2s$-sparse vector, such that $\x_S \in \op{Ker} \A_S$, where $S = \op{supp}(\x)$.
+    Then $\A \x = \A_S \x_S + \A_{\overline{S}} \x_{\overline{S}} = \mathbf{0} + \A_{\overline{S}}\mathbf{0} = \mathbf{0}$,
+    where $\overline{S} = [\![1,N]\!] \setminus S$.
+    Then by hypothesis, $\x = 0$ and $\x_S = 0$, and thus $\A_S$ is injective.
+
+    $(iii) \Rightarrow (ii)$  Let $\x$ be $2s$-sparse, $S = \op{supp}(\x)$ and $\A_S$ an injective map.
+    Suppose that $\x \in \op{Ker}\A$.
+    Then by extension, $\x_S \in \op{Ker}\A_S $ and $\x_S = \mathbf{0}$.
+    Thus, $\x = 0$.
+
+    For the last two implications we have to assume that $2s \leq m$.
+
+    $(iii) \Rightarrow (iv)$ Let $S \subset [\![1,N]\!]$, $\op{card}(S) = 2s$.
+    Then $\op{rang}(A_S)=2s - \op{dim}(\op{Ker} \A_S)) = 2s-0 = 2s$.
+
+    $(iv) \Rightarrow (iii)$ Let $S \subset [\![1,N]\!]$, $\op{card}(S) \leq 2s$.
+    Then $\op{rang}(A_S)= \op{card}(S)$ and
+    $\op{dim}(\op{Ker} \A_S)) = \op{card}(S)-\op{rang}(A_S) = 0$.
+    Thus, $\op{Ker} \A_S = \{ \mathbf{0}\}$.
+\end{proof}
+
+The importance of this theorem is that it gives us the necessary condition for a successful recovery of any $s$-sparse vector $\x$
+from \ref{eq:l0}: the number of measurements $m$ has to be at least $2s$.
+Indeed, if it is possible to reconstruct the vector by solving $l_0$-problem, then statement (i) holds, and then according
+to the theorem, $\op{rang} \A \geq 2s$.
+On the other hand, the rank of a matrix cannot be greater than its smallest dimension, which in this case is $m$.
+This gives us the necessary condition $m \geq 2s$.
+
+However, this lower bound is true for the most general case, where matrix $A$ is arbitrary.
+In reality, there are many cases where the lower threshold is much softer.
+For example, in the case of random matrices, we can find a lower value of $m$ that is enough for the problem to be solved with a reasonably high probability).
+This fact will be further studied in the next sections.
+For now, we will only state a theorem from [math intro to cs], that looks at this problem from another angle: here, we assume that the vector
+$\x$ is known and that we can choose a measurement matrix by ourselves.
+
+\begin{theorem}
+    For any $N \geq s+1$, given an $s$-sparse vector $\x \in \mathbb{K}^N$, there exists a measurement matrix $\A \ in M_{m\times N}(\mathbb{K})$
+    with $m=s+1$ rows such that the vector $\x$ can be recovered from its measurement vector $\mathbf{y=Ax}$ by solving \ref{eq:l0}.
+\end{theorem}
+
+Unfortunately, as good as it seems in theory, the $l_0$-minimization is not effective in practice: problem \ref{eq:l0} happens to be NP-hard [source].
+In fact, any non-convex optimization problem is NP-hard, which means that we have to look for convex alternatives instead.
+And one such alternative approach is $l_1$-minimization.

@@ -1,0 +1,86 @@
+%! suppress = MissingLabel
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[a4paper,top=2cm,bottom=2cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{proposition}[definition]{Proposition}
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\op}[1]{\operatorname{#1}}
+
+\title{Compressed sensing}
+\author{Anastasiia Storozhenko}
+
+\begin{document}
+\maketitle
+
+%\textbf{Outline:}
+%
+%\begin{enumerate}
+%    \item Introducing the problem
+%    \item Minimal number of measurements for 0-norm?
+%    \item From 0-norm to 1-norm + questions to answer
+%    \item When $l_1$-minimization solves the $l_0$-minimization problem (null space property)
+%    \item Number of measurements with log + my plots
+%    \item Phase transition + my plots
+%    \item Conclusion
+%\end{enumerate}
+
+\section{Introduction}
+
+Applications
+
+
+\input{sections/section1}
+
+\input{sections/section2}
+
+
+basis pursuit:
+\begin{equation}
+    \op{minimize} \ \norm{x}_1 \ \ \op{subject\ to} \ \ \mathbf{Ax=y}
+\end{equation}
+
+Other algorithms from chapter 3?
+
+\section{Studying the $l_1$-minimization}
+
+When does it solve the problem \ref{eq:l0}? $\xrightarrow{}$ chapter 4
+
+\begin{definition}
+    Null-space property
+\end{definition}
+
+Stability and robustness?
+
+\section{Number of measurements for $l_1$-minimization}
+
+Proposition 3.10 from The Convex Geometry of Linear Inverse Problems.
+My plots
+
+\section{Transition phase}
+
+Leaving on the Edge paper
+
+\newpage
+
+
+\end{document}

@@ -1,0 +1,41 @@
+\section{From $l_0$ to $l_1$}
+
+$\norm{\cdot}_p$: (preferably with pictures of unit balls)
+\begin{itemize}
+    \item $0 < p < 1$: non-convex, NP, bad
+    \item $p > 1$: convex, but doesn't solve the problem in general
+    \item $p = 1$: convex, solves the problem, good
+\end{itemize}
+
+\begin{figure}\label{fig:norms}
+
+\begin{tikzpicture}
+   \foreach \i in {0,...,2}{
+     \begin{scope}[xshift=\i*5.6cm]
+      \draw [gray, densely dashed][->] (-2,0)--(3,0);
+      \draw [gray, densely dashed][->] (0,-2)--(0,2.5);
+      \draw [teal][shorten <=-1.5cm, shorten >=-3mm] (0,1.5)--(2.5,0) node [sloped, pos=0.75, above=-0.1cm] {$\mathbf{Ax=y}$};
+    \end{scope}
+   }
+   \begin{scope}
+       \begin{scope}
+           \draw [domain=0:90,samples=100,smooth,variable=\t] plot({-1.5*cos(\t)^(3)},{1.5*sin(\t)^(3)});
+           \draw [domain=0:90,samples=100,smooth,variable=\t] plot({-1.5*cos(\t)^(3)},{-1.5*sin(\t)^(3)});
+           \draw [domain=0:90,samples=100,smooth,variable=\t] plot({1.5*cos(\t)^(3)},{-1.5*sin(\t)^(3)});
+           \draw [domain=0:90,samples=100,smooth,variable=\t] plot({1.5*cos(\t)^(3)},{1.5*sin(\t)^(3)});
+       \end{scope}
+       \draw [xshift=5.6cm] (-1.5,0)--(0,1.5)--(1.5,0)--(0,-1.5)--cycle;
+       \draw [](11.2,0) circle (1.28cm);
+
+       \foreach \i [count=\j from 0] in {(0,1.5),(0,1.5), (.64,1.11)} \scoped [xshift=\j*5.6cm] { \draw[black] [-{Circle[width=3pt, length=3pt, fill=black, black]},
+           shorten >=-1.5pt] (0,0) node{}  -- \i node [above right] {$x^*$} ; };
+
+       \draw (0, -2.5) node {$p < 1$}
+       \draw (5.6, -2.5) node {$p = 1$}
+       \draw (11.2, -2.5) node {$p > 1$}
+   \end{scope}
+
+\end{tikzpicture}
+    \caption{Unit balls}
+\end{figure}
+
