@@ -1,0 +1,32 @@
+\section{Details of umerical experiments}
+
+For the study of transition phase, the first major question was how to compute the statistical dimension of $\norm{\cdot}_1$.
+Thankfully, the paper \cite{livingontheedge} provides us with the result below, that gives us tight bounds for the statistical dimension.
+
+\begin{proposition}
+    Let $\x \in \mathbb{R}^N$ be an $s$-sparse vector.
+    Then the statistical dimension of the descent cone of the $l_1$ norm satisfies the inequality
+    \begin{equation}
+        \psi\left( \frac{s}{N} \right) - \frac{2}{\sqrt{sN}} \leq \frac{\delta(\mathcal{D}(\norm{\cdot}_1, \x))}{N}
+        \leq \psi\left( \frac{s}{N} \right),
+    \end{equation}
+    where $\psi:[0,1] \rightarrow [0, 1]$ is defined as
+    \begin{equation} \label{eq:inf}
+        \psi(\rho) \coloneq \inf_{\tau \geq 0} \left[ \rho (1+\tau^2) +
+        (1-\rho) \sqrt{\frac{2}{\pi}} \bigintssss_\tau^\infty  (u-\tau)^2  e^{-u^2/2}\mathrm{d}u \right].
+    \end{equation}
+\end{proposition}
+
+The infimum in \ref{eq:inf} is achieved for the unique value of $\tau$ that solves the equation
+\begin{equation} \label{eq:tau_eq}
+    \sqrt{\frac{2}{\pi}}\bigintssss_{\tau}^{\infty} \left( \frac{u}{\tau} - 1 \right) e^{-u^2/2} \mathrm{d} u = \frac{\rho}{1 - \rho}.
+\end{equation}
+Integrals in \ref{eq:inf} and \ref{eq:tau_eq} can be simplified with the use of the error function (erf) to obtain more suitable
+for computation quantities:
+    \begin{gather}
+        \sqrt{\frac{2}{\pi}}\tau^{-1}e^{-\tau^2/2} + \op{erf}\left( \frac{\tau}{\sqrt{2}} \right) - \frac{1}{1-\rho} = 0
+        \\
+        \psi(\rho) \coloneq \inf_{\tau \geq 0} \left[ \rho (1+\tau^2) +
+        (1-\rho) \left( \sqrt{\frac{2}{\pi}} \tau e^{-\tau^2/2} + (1+\tau^2)\left(\mathrm{erf}\left(\frac{\tau}{\sqrt{2}}\right) - 1\right) \right) \right].
+    \end{gather}
+

@@ -7,30 +7,51 @@
 
 % Set page size and margins
 % Replace `letterpaper' with `a4paper' for UK/EU standard size
-\usepackage[a4paper,top=2cm,bottom=2cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
-
+\usepackage[a4paper, left=2cm, right=3cm, top=2.5cm, bottom=3cm]{geometry}
+\setlength{\marginparwidth}{2cm}
 % Useful packages
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amsthm}
+\usepackage[maxbibnames=5, giveninits=true]{biblatex}
 \usepackage{enumitem}
 \usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{todonotes}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \usepackage{tikz}
+\usepackage{mathtools}
+\usepackage{bigints}
+
 \usetikzlibrary{arrows.meta}
-\newtheorem{definition}{Definition}[section]
-\newtheorem{theorem}[definition]{Theorem}
-\newtheorem{proposition}[definition]{Proposition}
+\usetikzlibrary{hobby}
+\usetikzlibrary{patterns}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
 \newcommand{\norm}[1]{\left\Vert#1\right\Vert}
 \newcommand{\A}{\mathbf{A}}
 \newcommand{\x}{\mathbf{x}}
+\newcommand{\z}{\mathbf{z}}
+\newcommand{\y}{\mathbf{y}}
 \newcommand{\op}[1]{\operatorname{#1}}
+\setuptodonotes{color=yellow!40, bordercolor=yellow, linecolor=yellow}
+\numberwithin{equation}{section}
 
 \title{Compressed sensing}
 \author{Anastasiia Storozhenko}
 
+\addbibresource{bibliography.bib}
+
 \begin{document}
-\maketitle
+    \maketitle
 
 %\textbf{Outline:}
 %
@@ -44,43 +65,20 @@
 %    \item Conclusion
 %\end{enumerate}
 
-\section{Introduction}
+\listoftodos
 
-Applications
-
-
+\input{sections/intro}
 \input{sections/section1}
 
 \input{sections/section2}
 
+\input{sections/section3}
 
-basis pursuit:
-\begin{equation}
-    \op{minimize} \ \norm{x}_1 \ \ \op{subject\ to} \ \ \mathbf{Ax=y}
-\end{equation}
+\input{sections/section4}
 
-Other algorithms from chapter 3?
+%\input{sections/conclusion}
 
-\section{Studying the $l_1$-minimization}
-
-When does it solve the problem \ref{eq:l0}? $\xrightarrow{}$ chapter 4
-
-\begin{definition}
-    Null-space property
-\end{definition}
-
-Stability and robustness?
-
-\section{Number of measurements for $l_1$-minimization}
-
-Proposition 3.10 from The Convex Geometry of Linear Inverse Problems.
-My plots
-
-\section{Transition phase}
-
-Leaving on the Edge paper
-
-\newpage
-
+    \nocite{*}
+\printbibliography
 
 \end{document}
