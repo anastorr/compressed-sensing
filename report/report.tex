@@ -19,7 +19,11 @@
 \usepackage{subcaption}
 \usepackage{todonotes}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{tikz}
+\usepackage[outline]{contour}
+\usepackage{wrapfig}
+
 \usepackage{mathtools}
 \usepackage{bigints}
 
@@ -34,7 +38,10 @@
 \newtheorem{definition}[theorem]{Definition}
 
 \theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{remark}
+\newtheorem*{example}{Example}
 
 \newcommand{\norm}[1]{\left\Vert#1\right\Vert}
 \newcommand{\A}{\mathbf{A}}

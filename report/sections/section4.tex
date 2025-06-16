@@ -1,4 +1,15 @@
-\section{Details of umerical experiments}
+\section{Details of numerical experiments}
+
+All of the plots shown here were done in Python.
+At first, I tried to write my own implementation of the Chambolle-Pock algorithm (see~\cite{chambolle}),
+but it wasn't fast enough for large numbers of tests, so I switched to \texttt{cvxpy} library.
+For plots in figures \ref{fig:log} and \ref{fig:lote} I generated for each pair $(s, m)$ 10 random normal matrices and
+10 $s$-sparse vectors $\x$ with non-zero components being either $1$ or $-1$.
+Then corresponding vectors of measurements $\y$ were computed and the obtained problem was passed into the solver.
+The result of the procedure was considered to be a success if the absolute error between $\x$ and the obtained solution
+was less then $10^{-4}$.
+Then the frequency of successful tests was calculated and ploted as a corresponding shade of gray, with white representing 100\%
+success.
 
 For the study of transition phase, the first major question was how to compute the statistical dimension of $\norm{\cdot}_1$.
 Thankfully, the paper \cite{livingontheedge} provides us with the result below, that gives us tight bounds for the statistical dimension.
@@ -24,9 +35,24 @@ The infimum in \ref{eq:inf} is achieved for the unique value of $\tau$ that solv
 Integrals in \ref{eq:inf} and \ref{eq:tau_eq} can be simplified with the use of the error function (erf) to obtain more suitable
 for computation quantities:
     \begin{gather}
-        \sqrt{\frac{2}{\pi}}\tau^{-1}e^{-\tau^2/2} + \op{erf}\left( \frac{\tau}{\sqrt{2}} \right) - \frac{1}{1-\rho} = 0
+        \sqrt{\frac{2}{\pi}}\tau^{-1}e^{-\tau^2/2} + \op{erf}\left( \frac{\tau}{\sqrt{2}} \right) - \frac{1}{1-\rho} = 0,
         \\
         \psi(\rho) \coloneq \inf_{\tau \geq 0} \left[ \rho (1+\tau^2) +
         (1-\rho) \left( \sqrt{\frac{2}{\pi}} \tau e^{-\tau^2/2} + (1+\tau^2)\left(\mathrm{erf}\left(\frac{\tau}{\sqrt{2}}\right) - 1\right) \right) \right].
     \end{gather}
 
+Then these results were used to plot the curves corresponding to the statistical dimension and
+bounds for the number of measurements from Theorem~\ref{th:lote}.
+
+Another moment worth expanding on is how the green curve in Fig.~\ref{fig:compare} was obtained.
+In the inequality (\ref{eq:log_improved}), probability depends on $m$, so to make this comparison fare,
+we would have to choose a specific threshold for the probability and then compute the corresponding $m$, which is
+exactly what was done.
+
+Let $p$ be the desired minimal probability of the successful recovery.
+Then we have an equation in terms of $m$:
+\[ 1 - \exp \left( - \frac{1}{2} \left[\frac{m}{\sqrt{m+1}} - \sqrt {2s \log \frac{N}{s}+\frac{5}{4}s}\right]^2 \right) = p.\]
+With some simple manipulations we get the solution of this equation:
+\[ m = \frac{L^2 + L\sqrt{L^2 + 4}}{2}, \]
+where $L = \sqrt{\log \frac{1}{(1-p)^2}} + \sqrt {2s \log \frac{N}{s}+\frac{5}{4}s}$.
+\todo[inline]{Add link to github}
