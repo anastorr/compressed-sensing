@@ -7,7 +7,7 @@
 
 % Set page size and margins
 % Replace `letterpaper' with `a4paper' for UK/EU standard size
-\usepackage[a4paper, left=2cm, right=3cm, top=2.5cm, bottom=3cm]{geometry}
+\usepackage[a4paper, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
 \setlength{\marginparwidth}{2cm}
 % Useful packages
 \usepackage{amsmath}
@@ -33,15 +33,17 @@
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 
 \theoremstyle{remark}
-\newtheorem*{remark}{Remark}
+\newtheorem{remark}[theorem]{Remark}
 
 \theoremstyle{remark}
-\newtheorem*{example}{Example}
+\newtheorem{example}[theorem]{Example}
 
 \newcommand{\norm}[1]{\left\Vert#1\right\Vert}
 \newcommand{\A}{\mathbf{A}}
@@ -52,8 +54,8 @@
 \setuptodonotes{color=yellow!40, bordercolor=yellow, linecolor=yellow}
 \numberwithin{equation}{section}
 
-\title{Compressed sensing}
-\author{Anastasiia Storozhenko}
+\title{Initiation to Research Report \\ Compressed Sensing}
+\author{Anastasiia Storozhenko \\ supervised by Guillaume Garrigos}
 
 \addbibresource{bibliography.bib}
 
@@ -71,8 +73,6 @@
 %    \item Phase transition + my plots
 %    \item Conclusion
 %\end{enumerate}
-
-\listoftodos
 
 \input{sections/intro}
 \input{sections/section1}

@@ -3,11 +3,12 @@
 We want to recover an  $s$-sparse vector $\mathbf{x} \in \mathbb{R}^N$ knowing a vector of $m$ measurements
 $\mathbf{y} \in \mathbb{R}^m$ and a measurement matrix $\mathbf{A} \in M_{m \times N}(\mathbb{R})$ with $m < N$,
 such that $\mathbf{Ax=y}$.
-The system is underdetermined, so we have to look for alternative ways to solve it.
-One such approach is to solve the corresponding $l_0$-minimization problem.
+The system is underdetermined, so we have to look for more creative ways to solve it.
+One such way is to solve the corresponding $l_0$-minimization problem.
+We start by giving basic definitions as seen in \cite{mathintro}.
 
 \begin{definition}
-    The \textbf{support} of a vector $\mathbf{x} \in \mathbb{R}^N$ is the set of indices of its nonzero entries:
+    The \textit{support} of a vector $\mathbf{x} \in \mathbb{R}^N$ is the set of indices of its nonzero entries:
     \begin{equation*}
         \op{supp}(\mathbf{x}) = \{ j \in [\![1,N]\!] \colon x_j \neq 0 \}
     \end{equation*}
@@ -15,7 +16,7 @@ One such approach is to solve the corresponding $l_0$-minimization problem.
 
 \begin{definition}
     We define $\norm{\mathbf{x}}_0$ as the cardinality of $\op{supp}(\mathbf{x})$.
-    We say that the vector $\mathbf{x}$ is \textbf{$s$-sparse} if $\norm{\mathbf{x}}_0 \leq s$.
+    We say that the vector $\mathbf{x}$ is \textit{$s$-sparse} if $\norm{\mathbf{x}}_0 \leq s$.
 \end{definition}
 Note that $\norm{\cdot}_0$ is not an actual norm, nor is it a semi-norm.
 Now we can formalize the problem in the following form:
@@ -23,6 +24,9 @@ Now we can formalize the problem in the following form:
     \op{minimize} \ \norm{\x}_0 \ \ \op{subject\ to} \ \ \mathbf{Ax=y}. \tag{P_0}
     \label{eq:l0}
 \end{equation}
+Even though it is easy to prove, there is no reason for the problem~\ref{eq:l0} to be automatically equivalent
+to what we started this.
+To highlight this, we write it down as a small proposition below.
 
 \begin{proposition}
     Let $\mathbf{A} \in M_{m \times N}(\mathbb{R})$, $\x \in \mathbb{R}^N$ $s$-sparse and $\mathbf{y} \in \mathbb{R}^m$.
@@ -40,6 +44,8 @@ Now we can formalize the problem in the following form:
     $(ii) \Rightarrow (i)$ Immediate.
 \end{proof}
 
+One of the biggest questions in this field (and the biggest in this report) is how many measurements $m$ we need for a successful recovery of
+the unknown vector.
 In the following theorem we denote by $\A_S$ the matrix consisting of the columns of $\A$ indexed by $S$
 and by $\x_S$ -- the vector consisting of the entries of $\x$ indexed by $S$.
 
@@ -65,7 +71,7 @@ and by $\x_S$ -- the vector consisting of the entries of $\x$ indexed by $S$.
     Then $\mathbf{x-z}$ is $2s$-sparse and $\mathbf{Ax - Az} = \mathbf{A(x-z)=0}$, which implies that $\mathbf{x-z} \in \op{Ker}\A$.
     By hypothesis, we conclude that $x=z$.
 
-    $(ii) \Rightarrow (iii)$ We recall that linear map $\mathbf{A}$ is injective iff $\op{Ker}\A = \{\mathbf{0}\}$.
+    $(ii) \Rightarrow (iii)$ We recall that linear map $\mathbf{A}$ is injective if and only if $\op{Ker}\A = \{\mathbf{0}\}$.
     Let $\xx \in \mathbb{R}^{N}$ be a $2s$-sparse vector, such that $\x_S \in \op{Ker} \A_S$, where $S = \op{supp}(\x)$.
     Then $\A \x = \A_S \x_S + \A_{\overline{S}} \x_{\overline{S}} = \mathbf{0} + \A_{\overline{S}}\mathbf{0} = \mathbf{0}$,
     where $\overline{S} = [\![1,N]\!] \setminus S$.
@@ -98,8 +104,10 @@ This gives us the necessary condition $m \geq 2s$.
 \begin{remark}
     However, in some cases we can successfully reconstruct the vector with fewer measurements $m$.
     For example, if it is possible to construct a matrix $\A$ that depends on the specific vector $\x$ we want to recover,
-    then the necessary condition becomes $m=s+1$ instead (see Theorem 2.16 in [..]\todo{add ref}).
-    Another example is random matrices, where it is enough to reconstruct vector $\x$ with some probability of success (we will see examples of that later).
+    then the necessary condition becomes $m=s+1$ instead (see Theorem 2.16 in \cite{mathintro}).
+    Alternatively, if we are ready to sacrifice the absolute certainty of the potential recovery, then
+    we can turn to random matrices, where it's possible to get recovery guarantees in probabilistic form (we will discuss this in
+    more details later).
 \end{remark}
 %However, this lower bound is true for the most general case, where matrix $A$ is arbitrary.
 %In reality, there are many cases where the lower threshold is much softer.
@@ -113,7 +121,7 @@ This gives us the necessary condition $m \geq 2s$.
 %    with $m=s+1$ rows such that the vector $\x$ can be recovered from its measurement vector $\mathbf{y=Ax}$ by solving \ref{eq:l0}.
 %\end{theorem}
 
-Unfortunately, as good as it seems in theory, the $l_0$-minimization is not effective in practice: problem \ref{eq:l0} happens to be NP-hard [source]
-\todo{add ref}.
-In fact, any non-convex optimization problem is NP-hard, which means that we have to look for convex alternatives instead.
-And one such alternative approach is $l_1$-minimization.
+Unfortunately, as good as it seems in theory, the $l_0$-minimization is not effective in practice: problem \ref{eq:l0} happens to be NP-hard
+(see, for example, section 2.3 in \cite{mathintro}).
+The same can be said for any $l_p$-minimization problem with $p<1$, which means that we have to look for convex alternatives instead,
+for example, $l_1$-minimization.

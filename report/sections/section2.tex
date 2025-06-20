@@ -1,82 +1,81 @@
-\section{From $l_0$ to $l_1$}
-
-\begin{figure}
-\begin{subfigure}{0.3\textwidth}
-    \begin{tikzpicture}
-         \draw [gray, densely dashed][->] (-2,0)--(3,0);
-         \draw [gray, densely dashed][->] (0,-2)--(0,2.5);
-         \draw [teal][shorten <=-1.5cm, shorten >=-3mm] (0,1.5)--(2.5,0) node [sloped, pos=0.75, above=-0.1cm] {$\mathbf{Ax=y}$};
-        \begin{scope}
-            \draw [domain=0:90,samples=100,smooth,variable=\t] plot({-1.5*cos(\t)^(3)},{1.5*sin(\t)^(3)});
-            \draw [domain=0:90,samples=100,smooth,variable=\t] plot({-1.5*cos(\t)^(3)},{-1.5*sin(\t)^(3)});
-            \draw [domain=0:90,samples=100,smooth,variable=\t] plot({1.5*cos(\t)^(3)},{-1.5*sin(\t)^(3)});
-            \draw [domain=0:90,samples=100,smooth,variable=\t] plot({1.5*cos(\t)^(3)},{1.5*sin(\t)^(3)});
-        \end{scope}
-        \draw[black] [-{Circle[width=3pt, length=3pt, fill=black, black]}, shorten >=-1.5pt] (0,0) node{}  -- (0, 1.5) node [above right] {$\x^*$} ;
-    \node at (0, -2.5){$p<1$};
-    \end{tikzpicture}
-\end{subfigure}\hfill
-\begin{subfigure}{0.3\textwidth}
-    \begin{tikzpicture}
-        \draw [gray, densely dashed][->] (-2,0)--(3,0);
-        \draw [gray, densely dashed][->] (0,-2)--(0,2.5);
-        \draw [teal][shorten <=-1.5cm, shorten >=-3mm] (0,1.5)--(2.5,0) node [sloped, pos=0.75, above=-0.1cm] {$\mathbf{Ax=y}$};
-        \draw (-1.5,0)--(0,1.5)--(1.5,0)--(0,-1.5)--cycle;
-        \draw[black] [-{Circle[width=3pt, length=3pt, fill=black, black]}, shorten >=-1.5pt] (0,0) node{}  -- (0,1.5) node [above right] {$\x^*$}
-        \node at (0, -2.5){$p=1$};
-    \end{tikzpicture}
-\end{subfigure}\hfill
-\begin{subfigure}{0.3\textwidth}
-    \begin{tikzpicture}
-        \draw [gray, densely dashed][->] (-2,0)--(3,0);
-        \draw [gray, densely dashed][->] (0,-2)--(0,2.5);
-        \draw [teal][shorten <=-1.5cm, shorten >=-3mm] (0,1.5)--(2.5,0) node [sloped, pos=0.75, above=-0.1cm] {$\mathbf{Ax=y}$};
-        \draw [](0,0) circle (1.28cm);
-        \draw[black] [-{Circle[width=3pt, length=3pt, fill=black, black]}, shorten >=-1.5pt] (0,0) node{}  -- (.64,1.11) node [above right] {$\x^*$}
-        \node at (0, -2.5){$p>1$};
-    \end{tikzpicture}
-\end{subfigure}
+\section{From the $l_0$ to the $l_1$ minimization}
 
 
-\caption{Unit balls}
-\label{fig:balls}
-\end{figure}
-
-\todo[inline]{Add description to Fig1, fix spacing}
-
-In the context of this work, when we speak of $l1$-minimization we mean the following convex optimization problem (also known as basis pursuit):
+In the context of this work, when we speak of $l_1$-minimization, we mean the following convex optimization problem (also known as basis pursuit):
 \begin{equation}\label{eq:l1}
 \op{minimize} \ \norm{\x}_1 \ \ \op{subject\ to} \ \ \mathbf{Ax=y}. \tag{P_1}
 \end{equation}
 
 Going from $\norm{\cdot}_0$ to $\norm{\cdot}_p$ is quite intuitive, as $\norm{\x}_p^p \xrightarrow[p \to 0]{} \norm{\x}_0 $, but why do we specifically want to work with $l_1$-minimization?
 There are three cases here: $p<1$, $p=1$ and $p>1$.
-For $p<1$, the biggest problem is that it is non-convex and thus the corresponding problem is NP-hard, which makes it
+For $p<1$, the biggest problem is that the corresponding problem is NP-hard, which makes it
 not very useful in practice (however, it is still used to build some theory around compressive sensing).
 With $p>1$ the problem becomes convex, however, a bigger issue arises: in most cases the solution of the corresponding
 minimization problem won't be sparse.
-It is easy to see why from a simple visualisation in Fig.~\ref{fig:balls} in dimension 2, where we show unit balls under different norms..
+It is easy to see why from a simple visualisation in Fig.~\ref{fig:balls} in dimension 2, where we show unit balls under different norms.
 We see that it would only work if the line $\mathbf{Ax=y}$ was parallel to one of the axes, in which case the solution would be indeed sparse.
 In any other case the solution would be a non-sparse vector that is closer to the origin under this norm.
 Which leaves us with $p=1$; for this value of $p$ we have neither of those problems.
 Moreover, it is a very well studied problem in convex optimization and many effective algorithms exist for solving it.
 
+\begin{figure}
+    \begin{subfigure}{0.3\textwidth}
+        \begin{tikzpicture}
+            \draw [gray, densely dashed][->] (-2,0)--(3,0);
+            \draw [gray, densely dashed][->] (0,-2)--(0,2.5);
+            \draw [teal][shorten <=-1.5cm, shorten >=-3mm] (0,1.5)--(2.5,0) node [sloped, pos=0.75, above=-0.1cm] {$\mathbf{Ax=y}$};
+            \begin{scope}
+                \draw [domain=0:90,samples=100,smooth,variable=\t] plot({-1.5*cos(\t)^(3)},{1.5*sin(\t)^(3)});
+                \draw [domain=0:90,samples=100,smooth,variable=\t] plot({-1.5*cos(\t)^(3)},{-1.5*sin(\t)^(3)});
+                \draw [domain=0:90,samples=100,smooth,variable=\t] plot({1.5*cos(\t)^(3)},{-1.5*sin(\t)^(3)});
+                \draw [domain=0:90,samples=100,smooth,variable=\t] plot({1.5*cos(\t)^(3)},{1.5*sin(\t)^(3)});
+            \end{scope}
+            \draw[black] [-{Circle[width=3pt, length=3pt, fill=black, black]}, shorten >=-1.5pt] (0,0) node{}  -- (0, 1.5) node [above right] {$\x^*$} ;
+            \node at (0, -2.5){$p<1$};
+        \end{tikzpicture}
+    \end{subfigure}\hfill
+    \begin{subfigure}{0.3\textwidth}
+        \begin{tikzpicture}
+            \draw [gray, densely dashed][->] (-2,0)--(3,0);
+            \draw [gray, densely dashed][->] (0,-2)--(0,2.5);
+            \draw [teal][shorten <=-1.5cm, shorten >=-3mm] (0,1.5)--(2.5,0) node [sloped, pos=0.75, above=-0.1cm] {$\mathbf{Ax=y}$};
+            \draw (-1.5,0)--(0,1.5)--(1.5,0)--(0,-1.5)--cycle;
+            \draw[black] [-{Circle[width=3pt, length=3pt, fill=black, black]}, shorten >=-1.5pt] (0,0) node{}  -- (0,1.5) node [above right] {$\x^*$}
+            \node at (0, -2.5){$p=1$};
+        \end{tikzpicture}
+    \end{subfigure}\hfill
+    \begin{subfigure}{0.3\textwidth}
+        \begin{tikzpicture}
+            \draw [gray, densely dashed][->] (-2,0)--(3,0);
+            \draw [gray, densely dashed][->] (0,-2)--(0,2.5);
+            \draw [teal][shorten <=-1.5cm, shorten >=-3mm] (0,1.5)--(2.5,0) node [sloped, pos=0.75, above=-0.1cm] {$\mathbf{Ax=y}$};
+            \draw [](0,0) circle (1.28cm);
+            \draw[black] [-{Circle[width=3pt, length=3pt, fill=black, black]}, shorten >=-1.5pt] (0,0) node{}  -- (.64,1.11) node [above right] {$\x^*$}
+            \node at (0, -2.5){$p>1$};
+        \end{tikzpicture}
+    \end{subfigure}
+
+
+    \caption{\centering Unit balls under $l_p$ norm for different values of $p$. Here $\x^*$ denotes the solution of the
+    corresponding minimization problem under constraints $\A \x = \y$.}
+    \label{fig:balls}
+\end{figure}
 
 Now a new question arises: under which conditions does the minimizer of \ref{eq:l1} solve \ref{eq:l0}?
 To answer it we introduce the notion of null space property.
 
 \begin{definition}
-    A matrix $\A \in M_{m \times N}(\mathbb{R})$ is said to satisfy the null space property relative to a set $S \subset [\![1,N]\!]$
+    A matrix $\A \in M_{m \times N}(\mathbb{R})$ is said to satisfy the \textit{null space property} relative to a set $S \subset [\![1,N]\!]$
     if
     \[ \norm{\mathbf{v}_S}_1 < \norm{\mathbf{v}_{\overline{S}}}_1, \ \ \forall \mathbf{v} \in \op{Ker} \A \backslash \{\mathbf{0}\}. \]
-    It is said to satisfy the null space property of order $s$ if it satisfies the null space property relative to any
+    It is said to satisfy the \textit{null space property of order $s$} if it satisfies the null space property relative to any
     $S \subset [\![1,N]\!]$ with $\op{card}(S) \leq s$.
 \end{definition}
 
 \begin{theorem}\label{th:nullspace}
-    Let $\mathbf{A} \in M_{m \times N}(\mathbb{R})$.
-    A vector $\z \in \mathbb{R}^N$ supported on a set $S$ is the unique solution of \ref{eq:l1} with $\mathbf{y = Az}$ iff $\A$
-    satisfies the null space property relative to $S$.
+Let $\mathbf{A} \in M_{m \times N}(\mathbb{R})$.
+A vector $\z \in \mathbb{R}^N$ supported on a set $S$ is the unique solution of \ref{eq:l1} with $\mathbf{y = Az}$ if and
+only if $\A$ satisfies the null space property relative to $S$.
 \end{theorem}
 
 \begin{proof}
@@ -99,8 +98,8 @@ which contradicts the assumption.
 
 \begin{theorem}
     Let $\mathbf{A} \in M_{m \times N}(\mathbb{R})$.
-    An $s$-sparse vector $\z \in \mathbb{R}^N$ is the unique solution of \ref{eq:l1} with $\mathbf{y = Az}$ iff $\A$ satisfies the null
-    property of order $s$.
+    An $s$-sparse vector $\z \in \mathbb{R}^N$ is the unique solution of \ref{eq:l1} with $\mathbf{y = Az}$ if and only
+    if $\A$ satisfies the null space property of order $s$.
 \end{theorem}
 \begin{proof}
     Immediate from Theorem~\ref{th:nullspace}.
@@ -109,10 +108,14 @@ which contradicts the assumption.
 \begin{remark}
 Note that this result gives us conditions on when the solution $\z$ of \ref{eq:l1} is also the solution of \ref{eq:l0} with $\mathbf{y=Az}.
 \end{remark}
-
-Despite this result being fundamental for the theoretical study of compressed sensing, it is not easy to verify
+Despite this result being fundamental in the theoretical study of compressed sensing, it is not easy to verify
 if a matrix satisfies this property in practice.
-Turns out, in the case of random matrices it is not needed: in fact, we can obtain satisfying recovery guaranties in a probabilistic form.
-That is exactly what we are going to focus on for the rest of this report.
+New tools were developed over the years to study conditions for the solution of the problem \ref{eq:l1} to also be the solution of \ref{eq:l0}.
+Probably the most important one is the \textit{restricted isometry property} (see, for example, \cite{tao}).
+We won't be discussing this topic in details, just state the fact we will be interested in the most:
+the corresponding condition for equivalence between \ref{eq:l1} and \ref{eq:l0} is satisfied by certain types of random matrices
+with high probability.
+In the following section we will focus on two specific results for matrices with independent normally distributed entries,
+that give us the conditions for finding the unique solution of \ref{eq:l1}.
 
 %\todo[inline]{Talk about: not easy to check in practice but true for random matrices (maybe a theorem?)}

@@ -1,3 +1,21 @@
 \section{Introduction}
 
-\todo[inline, color=yellow!40, bordercolor=yellow]{Write intro (with applications?)}
+The field of \textit{comressed sensing} (often also called compressive sensing) treats the problem of solving an
+underdetermined linear system under the assumption of sparsity.
+It emerged from signal processing, where such problems often occur; many signals are sparse at least in some basis,
+e.g. Fourier or wavelet.
+Tools developed in compressed sensing allow to take a smaller amount of linear measurements
+(linear combinations of signal components) than would normally be required to restore the signal.
+These tools can also be used to \textit{compress} any sparse data for efficient storage or transmission with guarantees of
+successful restoration.
+Another field of application is medical imaging; with the help of compressed sensing it is possible to significally
+shorten the time needed to take the image.
+
+The list of applications goes on, but our focus will be on the mathematical side of things.
+During this project I worked on three main sources: the book ``A mathematical Introduction to Compressive Sensing'' by
+S.~Foucart and H.~Rauhut \cite{mathintro}, the paper ``The Convex Geometry of Linear Inverse Problems'' by V.~Chandrasekaran
+et al. \cite{convexgeom}, and the paper ``Living on the Edge: Phase Transitions in Convex Programs with Random Data'' by
+D.~Amelunxen et al. \cite{lote}.
+We will first cover some general results from the book in sections 2 and 3 and then switch to the
+study of the two papers in section 4.
+We will look for connections between those papers and try to reproduce some results, while filling any gaps we find.
